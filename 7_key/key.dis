@@ -1,0 +1,320 @@
+
+key.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+87800000 <_bss_start>:
+87800000:	87800298 			; <UNDEFINED> instruction: 0x87800298
+
+87800004 <_bss_end>:
+87800004:	8780029c 			; <UNDEFINED> instruction: 0x8780029c
+
+87800008 <_start>:
+87800008:	e10f0000 	mrs	r0, CPSR
+8780000c:	e3c0001f 	bic	r0, r0, #31
+87800010:	e3800013 	orr	r0, r0, #19
+87800014:	e129f000 	msr	CPSR_fc, r0
+87800018:	e51f0020 	ldr	r0, [pc, #-32]	; 87800000 <_bss_start>
+8780001c:	e51f1020 	ldr	r1, [pc, #-32]	; 87800004 <_bss_end>
+87800020:	e3a02000 	mov	r2, #0
+
+87800024 <bss_loop>:
+87800024:	e8a00004 	stmia	r0!, {r2}
+87800028:	e1500001 	cmp	r0, r1
+8780002c:	dafffffc 	ble	87800024 <bss_loop>
+87800030:	e51fd000 	ldr	sp, [pc, #-0]	; 87800038 <bss_loop+0x14>
+87800034:	ea00007f 	b	87800238 <__main_from_arm>
+87800038:	80200000 	eorhi	r0, r0, r0
+8780003c:	00001e41 	andeq	r1, r0, r1, asr #28
+87800040:	61656100 	cmnvs	r5, r0, lsl #2
+87800044:	01006962 	tsteq	r0, r2, ror #18
+87800048:	00000014 	andeq	r0, r0, r4, lsl r0
+8780004c:	412d3705 	teqmi	sp, r5, lsl #14
+87800050:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+87800054:	09010841 	stmdbeq	r1, {r0, r6, fp}
+87800058:	00040a02 	andeq	r0, r4, r2, lsl #20
+
+8780005c <clk_init>:
+8780005c:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+87800060:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
+87800064:	f2c0 230c 	movt	r3, #524	; 0x20c
+87800068:	669a      	str	r2, [r3, #104]	; 0x68
+8780006a:	66da      	str	r2, [r3, #108]	; 0x6c
+8780006c:	671a      	str	r2, [r3, #112]	; 0x70
+8780006e:	675a      	str	r2, [r3, #116]	; 0x74
+87800070:	679a      	str	r2, [r3, #120]	; 0x78
+87800072:	67da      	str	r2, [r3, #124]	; 0x7c
+87800074:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+87800078:	4770      	bx	lr
+8780007a:	bf00      	nop
+
+8780007c <Bsp_Led_Init>:
+8780007c:	2168      	movs	r1, #104	; 0x68
+8780007e:	f44f 723d 	mov.w	r2, #756	; 0x2f4
+87800082:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+87800086:	b410      	push	{r4}
+87800088:	f2c0 2309 	movt	r3, #521	; 0x209
+8780008c:	2405      	movs	r4, #5
+8780008e:	f2c0 220e 	movt	r2, #526	; 0x20e
+87800092:	f2c0 210e 	movt	r1, #526	; 0x20e
+87800096:	f241 00b0 	movw	r0, #4272	; 0x10b0
+8780009a:	600c      	str	r4, [r1, #0]
+8780009c:	6010      	str	r0, [r2, #0]
+8780009e:	685a      	ldr	r2, [r3, #4]
+878000a0:	f85d 4b04 	ldr.w	r4, [sp], #4
+878000a4:	f042 0208 	orr.w	r2, r2, #8
+878000a8:	605a      	str	r2, [r3, #4]
+878000aa:	681a      	ldr	r2, [r3, #0]
+878000ac:	f022 0208 	bic.w	r2, r2, #8
+878000b0:	601a      	str	r2, [r3, #0]
+878000b2:	4770      	bx	lr
+
+878000b4 <Bsp_Led_On>:
+878000b4:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878000b8:	f2c0 2309 	movt	r3, #521	; 0x209
+878000bc:	681a      	ldr	r2, [r3, #0]
+878000be:	f022 0208 	bic.w	r2, r2, #8
+878000c2:	601a      	str	r2, [r3, #0]
+878000c4:	4770      	bx	lr
+878000c6:	bf00      	nop
+
+878000c8 <Bsp_Led_Off>:
+878000c8:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878000cc:	f2c0 2309 	movt	r3, #521	; 0x209
+878000d0:	681a      	ldr	r2, [r3, #0]
+878000d2:	f042 0208 	orr.w	r2, r2, #8
+878000d6:	601a      	str	r2, [r3, #0]
+878000d8:	4770      	bx	lr
+878000da:	bf00      	nop
+
+878000dc <Bsp_Led_Switch>:
+878000dc:	b150      	cbz	r0, 878000f4 <Bsp_Led_Switch+0x18>
+878000de:	2801      	cmp	r0, #1
+878000e0:	d110      	bne.n	87800104 <Bsp_Led_Switch+0x28>
+878000e2:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878000e6:	f2c0 2309 	movt	r3, #521	; 0x209
+878000ea:	681a      	ldr	r2, [r3, #0]
+878000ec:	f022 0208 	bic.w	r2, r2, #8
+878000f0:	601a      	str	r2, [r3, #0]
+878000f2:	4770      	bx	lr
+878000f4:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878000f8:	f2c0 2309 	movt	r3, #521	; 0x209
+878000fc:	681a      	ldr	r2, [r3, #0]
+878000fe:	f042 0208 	orr.w	r2, r2, #8
+87800102:	601a      	str	r2, [r3, #0]
+87800104:	4770      	bx	lr
+87800106:	bf00      	nop
+
+87800108 <Bsp_Beep_init>:
+87800108:	210c      	movs	r1, #12
+8780010a:	2250      	movs	r2, #80	; 0x50
+8780010c:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+87800110:	b410      	push	{r4}
+87800112:	f2c0 230a 	movt	r3, #522	; 0x20a
+87800116:	2405      	movs	r4, #5
+87800118:	f2c0 2229 	movt	r2, #553	; 0x229
+8780011c:	f2c0 2129 	movt	r1, #553	; 0x229
+87800120:	f241 00b0 	movw	r0, #4272	; 0x10b0
+87800124:	600c      	str	r4, [r1, #0]
+87800126:	6010      	str	r0, [r2, #0]
+87800128:	685a      	ldr	r2, [r3, #4]
+8780012a:	f85d 4b04 	ldr.w	r4, [sp], #4
+8780012e:	f042 0202 	orr.w	r2, r2, #2
+87800132:	605a      	str	r2, [r3, #4]
+87800134:	681a      	ldr	r2, [r3, #0]
+87800136:	f042 0202 	orr.w	r2, r2, #2
+8780013a:	601a      	str	r2, [r3, #0]
+8780013c:	4770      	bx	lr
+8780013e:	bf00      	nop
+
+87800140 <Bsp_Beep_Control>:
+87800140:	b150      	cbz	r0, 87800158 <Bsp_Beep_Control+0x18>
+87800142:	2801      	cmp	r0, #1
+87800144:	d110      	bne.n	87800168 <Bsp_Beep_Control+0x28>
+87800146:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+8780014a:	f2c0 230a 	movt	r3, #522	; 0x20a
+8780014e:	681a      	ldr	r2, [r3, #0]
+87800150:	f022 0202 	bic.w	r2, r2, #2
+87800154:	601a      	str	r2, [r3, #0]
+87800156:	4770      	bx	lr
+87800158:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+8780015c:	f2c0 230a 	movt	r3, #522	; 0x20a
+87800160:	681a      	ldr	r2, [r3, #0]
+87800162:	f042 0202 	orr.w	r2, r2, #2
+87800166:	601a      	str	r2, [r3, #0]
+87800168:	4770      	bx	lr
+8780016a:	bf00      	nop
+
+8780016c <Bsp_Key_Init>:
+8780016c:	218c      	movs	r1, #140	; 0x8c
+8780016e:	f44f 7246 	mov.w	r2, #792	; 0x318
+87800172:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+87800176:	b410      	push	{r4}
+87800178:	f2c0 220e 	movt	r2, #526	; 0x20e
+8780017c:	2405      	movs	r4, #5
+8780017e:	f2c0 2309 	movt	r3, #521	; 0x209
+87800182:	f2c0 210e 	movt	r1, #526	; 0x20e
+87800186:	f24f 0080 	movw	r0, #61568	; 0xf080
+8780018a:	600c      	str	r4, [r1, #0]
+8780018c:	6010      	str	r0, [r2, #0]
+8780018e:	685a      	ldr	r2, [r3, #4]
+87800190:	f85d 4b04 	ldr.w	r4, [sp], #4
+87800194:	f422 2280 	bic.w	r2, r2, #262144	; 0x40000
+87800198:	605a      	str	r2, [r3, #4]
+8780019a:	4770      	bx	lr
+
+8780019c <Bsp_Key_ReadStatus>:
+8780019c:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878001a0:	f2c0 2309 	movt	r3, #521	; 0x209
+878001a4:	6818      	ldr	r0, [r3, #0]
+878001a6:	f480 2080 	eor.w	r0, r0, #262144	; 0x40000
+878001aa:	f3c0 4080 	ubfx	r0, r0, #18, #1
+878001ae:	4770      	bx	lr
+
+878001b0 <Bsp_Key_DetectPressEvent>:
+878001b0:	b538      	push	{r3, r4, r5, lr}
+878001b2:	f240 2498 	movw	r4, #664	; 0x298
+878001b6:	f2c8 7480 	movt	r4, #34688	; 0x8780
+878001ba:	6823      	ldr	r3, [r4, #0]
+878001bc:	b933      	cbnz	r3, 878001cc <Bsp_Key_DetectPressEvent+0x1c>
+878001be:	f44f 4540 	mov.w	r5, #49152	; 0xc000
+878001c2:	f2c0 2509 	movt	r5, #521	; 0x209
+878001c6:	682b      	ldr	r3, [r5, #0]
+878001c8:	0359      	lsls	r1, r3, #13
+878001ca:	d50a      	bpl.n	878001e2 <Bsp_Key_DetectPressEvent+0x32>
+878001cc:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878001d0:	f2c0 2309 	movt	r3, #521	; 0x209
+878001d4:	681b      	ldr	r3, [r3, #0]
+878001d6:	035a      	lsls	r2, r3, #13
+878001d8:	d509      	bpl.n	878001ee <Bsp_Key_DetectPressEvent+0x3e>
+878001da:	2300      	movs	r3, #0
+878001dc:	4618      	mov	r0, r3
+878001de:	6023      	str	r3, [r4, #0]
+878001e0:	bd38      	pop	{r3, r4, r5, pc}
+878001e2:	200a      	movs	r0, #10
+878001e4:	f000 f812 	bl	8780020c <Bsp_Delay>
+878001e8:	682b      	ldr	r3, [r5, #0]
+878001ea:	035b      	lsls	r3, r3, #13
+878001ec:	d501      	bpl.n	878001f2 <Bsp_Key_DetectPressEvent+0x42>
+878001ee:	2000      	movs	r0, #0
+878001f0:	bd38      	pop	{r3, r4, r5, pc}
+878001f2:	2001      	movs	r0, #1
+878001f4:	6020      	str	r0, [r4, #0]
+878001f6:	bd38      	pop	{r3, r4, r5, pc}
+
+878001f8 <Bsp_Delay_Short>:
+878001f8:	b082      	sub	sp, #8
+878001fa:	9001      	str	r0, [sp, #4]
+878001fc:	9b01      	ldr	r3, [sp, #4]
+878001fe:	1e5a      	subs	r2, r3, #1
+87800200:	9201      	str	r2, [sp, #4]
+87800202:	2b00      	cmp	r3, #0
+87800204:	d1fa      	bne.n	878001fc <Bsp_Delay_Short+0x4>
+87800206:	b002      	add	sp, #8
+87800208:	4770      	bx	lr
+8780020a:	bf00      	nop
+
+8780020c <Bsp_Delay>:
+8780020c:	b082      	sub	sp, #8
+8780020e:	9001      	str	r0, [sp, #4]
+87800210:	9b01      	ldr	r3, [sp, #4]
+87800212:	1e5a      	subs	r2, r3, #1
+87800214:	9201      	str	r2, [sp, #4]
+87800216:	b153      	cbz	r3, 8780022e <Bsp_Delay+0x22>
+87800218:	f240 73ff 	movw	r3, #2047	; 0x7ff
+8780021c:	461a      	mov	r2, r3
+8780021e:	3b01      	subs	r3, #1
+87800220:	2a00      	cmp	r2, #0
+87800222:	d1fb      	bne.n	8780021c <Bsp_Delay+0x10>
+87800224:	9b01      	ldr	r3, [sp, #4]
+87800226:	1e5a      	subs	r2, r3, #1
+87800228:	9201      	str	r2, [sp, #4]
+8780022a:	2b00      	cmp	r3, #0
+8780022c:	d1f4      	bne.n	87800218 <Bsp_Delay+0xc>
+8780022e:	b002      	add	sp, #8
+87800230:	4770      	bx	lr
+87800232:	bf00      	nop
+87800234:	0000      	movs	r0, r0
+	...
+
+87800238 <__main_from_arm>:
+87800238:	e51ff004 	ldr	pc, [pc, #-4]	; 8780023c <__main_from_arm+0x4>
+8780023c:	87800241 	strhi	r0, [r0, r1, asr #4]
+
+Disassembly of section .text.startup:
+
+87800240 <main>:
+87800240:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+87800242:	2601      	movs	r6, #1
+87800244:	2500      	movs	r5, #0
+87800246:	4637      	mov	r7, r6
+87800248:	f7ff ff08 	bl	8780005c <clk_init>
+8780024c:	f7ff ff16 	bl	8780007c <Bsp_Led_Init>
+87800250:	f7ff ff5a 	bl	87800108 <Bsp_Beep_init>
+87800254:	f7ff ff8a 	bl	8780016c <Bsp_Key_Init>
+87800258:	e008      	b.n	8780026c <main+0x2c>
+8780025a:	2d32      	cmp	r5, #50	; 0x32
+8780025c:	f105 0401 	add.w	r4, r5, #1
+87800260:	b2e4      	uxtb	r4, r4
+87800262:	d010      	beq.n	87800286 <main+0x46>
+87800264:	200a      	movs	r0, #10
+87800266:	4625      	mov	r5, r4
+87800268:	f7ff ffd0 	bl	8780020c <Bsp_Delay>
+8780026c:	f7ff ffa0 	bl	878001b0 <Bsp_Key_DetectPressEvent>
+87800270:	2801      	cmp	r0, #1
+87800272:	d1f2      	bne.n	8780025a <main+0x1a>
+87800274:	4630      	mov	r0, r6
+87800276:	1c6c      	adds	r4, r5, #1
+87800278:	f7ff ff62 	bl	87800140 <Bsp_Beep_Control>
+8780027c:	2d32      	cmp	r5, #50	; 0x32
+8780027e:	f086 0601 	eor.w	r6, r6, #1
+87800282:	b2e4      	uxtb	r4, r4
+87800284:	d1ee      	bne.n	87800264 <main+0x24>
+87800286:	4638      	mov	r0, r7
+87800288:	2400      	movs	r4, #0
+8780028a:	f087 0701 	eor.w	r7, r7, #1
+8780028e:	f7ff ff25 	bl	878000dc <Bsp_Led_Switch>
+87800292:	e7e7      	b.n	87800264 <main+0x24>
+
+Disassembly of section .data:
+
+87800294 <a>:
+87800294:	Address 0x0000000087800294 is out of bounds.
+
+
+Disassembly of section .bss:
+
+87800298 <__bss_start>:
+87800298:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <_bss_start-0x8672f2dc>
+   4:	694c2820 	stmdbvs	ip, {r5, fp, sp}^
+   8:	6f72616e 	svcvs	0x0072616e
+   c:	43434720 	movtmi	r4, #14112	; 0x3720
+  10:	392e3420 	stmdbcc	lr!, {r5, sl, ip, sp}
+  14:	3130322d 	teqcc	r0, sp, lsr #4
+  18:	31302e37 	teqcc	r0, r7, lsr lr
+  1c:	2e342029 	cdpcs	0, 3, cr2, cr4, cr9, {1}
+  20:	00342e39 	eorseq	r2, r4, r9, lsr lr
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00003041 	andeq	r3, r0, r1, asr #32
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000026 	andeq	r0, r0, r6, lsr #32
+  10:	412d3705 	teqmi	sp, r5, lsl #14
+  14:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+  18:	09010841 	stmdbeq	r1, {r0, r6, fp}
+  1c:	12040a02 	andne	r0, r4, #8192	; 0x2000
+  20:	15011404 	strne	r1, [r1, #-1028]	; 0x404
+  24:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
+  28:	1b021a01 	blne	86834 <_bss_start-0x877797cc>
+  2c:	22011c03 	andcs	r1, r1, #768	; 0x300
+  30:	Address 0x0000000000000030 is out of bounds.
+

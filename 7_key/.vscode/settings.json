@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "driver_clk.h": "c",
+        "mcimx6y2.h": "c",
+        "driver_delay.h": "c",
+        "bsp_led.h": "c",
+        "imx6ull.h": "c",
+        "bsp_delay.h": "c",
+        "bsp_beep.h": "c",
+        "bsp_key.h": "c",
+        "fsl_iomuxc.h": "c",
+        "typedef.h": "c",
+        "bsp_typedef.h": "c"
+    },
+    "makefile.configureOnOpen": true,
+    "editor.fontFamily": "Monospace",
+    "terminal.integrated.fontFamily": "JetbrainsMono Nerd Font"
+}
