@@ -1,11 +1,18 @@
 #ifndef __BSP_KEY_H__
 #define __BSP_KEY_H__
 
+#include "driver_gpio.h"
 #include "imx6ull.h"
 
-typedef enum { KEY_UP, KEY_DOWN } KeyStatus_t;
+typedef enum {
+    KEY_UP = GPIO_PIN_SET,
+    KEY_DOWN = GPIO_PIN_RESET
+} KeyStatus_t;
 
-typedef enum { KEY_NONE = 0, KEY0 } KeyNo_t;
+typedef enum {
+    KEY_NONE = 0,
+    KEY0
+} KeyNo_t;
 
 void Bsp_Key_Init();
 

@@ -7,22 +7,24 @@ OBJCOPY				:= $(CROSS_COMPILE)objcopy
 OBJDUMP				:= $(CROSS_COMPILE)objdump
 
 # 所有头文件路径
-INCLUDE_DIRS 		:= sdk		\
-					   driver	\
-					   project 	\
-					   bsp		\
-					   bsp/led	\
-					   bsp/beep	\
-					   bsp/key	\
+INCLUDE_DIRS 		:= sdk				\
+					   driver/clk		\
+					   driver/gpio		\
+					   project 			\
+					   bsp				\
+					   bsp/led			\
+					   bsp/beep			\
+					   bsp/key			\
 					   bsp/delay
 
 # 所有源文件路径
-SRC_DIRS			:= sdk		\
-					   driver	\
-					   project 	\
-					   bsp/led	\
-					   bsp/beep	\
-					   bsp/key	\
+SRC_DIRS			:= sdk				\
+					   driver/clk		\
+					   driver/gpio		\
+					   project 			\
+					   bsp/led			\
+					   bsp/beep			\
+					   bsp/key			\
 					   bsp/delay
 
 # 目标文件路径
