@@ -5,13 +5,6 @@
 #define __O  volatile
 #define __IO volatile
 
-#define BIT_IS_SET(REG, BIT_INDEX)   ((REG) & (1 << (BIT_INDEX)))
-#define BIT_IS_NOSET(REG, BIT_INDEX) ((REG) & (1 << (BIT_INDEX)) == 0)
-
-#define BIT_CLEAR(REG, BIT_INDEX) (REG) &= ~(1 << (BIT_INDEX))
-#define BIT_SET(REG, BIT_INDEX)   (REG) |= (1 << (BIT_INDEX))
-#define BITS_SET(REG, VALUE)      (REG) |= (VALUE)
-
 typedef signed char int8_t;
 typedef unsigned char uint8_t;
 typedef signed short int16_t;

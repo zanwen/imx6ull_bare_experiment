@@ -10,14 +10,11 @@ volatile uint8_t a = 1;
 // volatile uint8_t c = 3;
 
 int main() {
+    Driver_CLK_Init();
     Driver_CLK_Enable();
     Bsp_Led_Init();
     Bsp_Beep_Init();
     Bsp_Key_Init();
-
-    Bsp_Beep_Control(ON);
-    Bsp_Delay(500);
-    Bsp_Beep_Control(OFF);
 
     uint8_t cnt = 0;
     SwitchStatus_t ledStatus = ON;

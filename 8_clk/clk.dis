@@ -1,0 +1,440 @@
+
+clk.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+87800000 <_bss_start>:
+87800000:	878003c8 	strhi	r0, [r0, r8, asr #7]
+
+87800004 <_bss_end>:
+87800004:	878003c8 	strhi	r0, [r0, r8, asr #7]
+
+87800008 <_start>:
+87800008:	e10f0000 	mrs	r0, CPSR
+8780000c:	e3c0001f 	bic	r0, r0, #31
+87800010:	e3800013 	orr	r0, r0, #19
+87800014:	e129f000 	msr	CPSR_fc, r0
+87800018:	e51f0020 	ldr	r0, [pc, #-32]	; 87800000 <_bss_start>
+8780001c:	e51f1020 	ldr	r1, [pc, #-32]	; 87800004 <_bss_end>
+87800020:	e3a02000 	mov	r2, #0
+
+87800024 <bss_loop>:
+87800024:	e8a00004 	stmia	r0!, {r2}
+87800028:	e1500001 	cmp	r0, r1
+8780002c:	dafffffc 	ble	87800024 <bss_loop>
+87800030:	e51fd000 	ldr	sp, [pc, #-0]	; 87800038 <bss_loop+0x14>
+87800034:	ea0000c9 	b	87800360 <__main_from_arm>
+87800038:	80200000 	eorhi	r0, r0, r0
+8780003c:	00001e41 	andeq	r1, r0, r1, asr #28
+87800040:	61656100 	cmnvs	r5, r0, lsl #2
+87800044:	01006962 	tsteq	r0, r2, ror #18
+87800048:	00000014 	andeq	r0, r0, r4, lsl r0
+8780004c:	412d3705 	teqmi	sp, r5, lsl #14
+87800050:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+87800054:	09010841 	stmdbeq	r1, {r0, r6, fp}
+87800058:	00040a02 	andeq	r0, r4, r2, lsl #20
+
+8780005c <Driver_CLK_Init>:
+8780005c:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+87800060:	b470      	push	{r4, r5, r6}
+87800062:	f2c0 230c 	movt	r3, #524	; 0x20c
+87800066:	68da      	ldr	r2, [r3, #12]
+87800068:	0751      	lsls	r1, r2, #29
+8780006a:	d407      	bmi.n	8780007c <Driver_CLK_Init+0x20>
+8780006c:	68da      	ldr	r2, [r3, #12]
+8780006e:	f422 7280 	bic.w	r2, r2, #256	; 0x100
+87800072:	60da      	str	r2, [r3, #12]
+87800074:	68da      	ldr	r2, [r3, #12]
+87800076:	f042 0204 	orr.w	r2, r2, #4
+8780007a:	60da      	str	r2, [r3, #12]
+8780007c:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+87800080:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+87800084:	f2c0 220c 	movt	r2, #524	; 0x20c
+87800088:	f2c0 230c 	movt	r3, #524	; 0x20c
+8780008c:	6810      	ldr	r0, [r2, #0]
+8780008e:	2600      	movs	r6, #0
+87800090:	f241 051b 	movw	r5, #4123	; 0x101b
+87800094:	f241 040c 	movw	r4, #4108	; 0x100c
+87800098:	f2c2 0518 	movt	r5, #8216	; 0x2018
+8780009c:	f2c1 3411 	movt	r4, #4881	; 0x1311
+878000a0:	f440 5001 	orr.w	r0, r0, #8256	; 0x2040
+878000a4:	4619      	mov	r1, r3
+878000a6:	f040 0002 	orr.w	r0, r0, #2
+878000aa:	6010      	str	r0, [r2, #0]
+878000ac:	68d8      	ldr	r0, [r3, #12]
+878000ae:	f020 0004 	bic.w	r0, r0, #4
+878000b2:	60d8      	str	r0, [r3, #12]
+878000b4:	611e      	str	r6, [r3, #16]
+878000b6:	f8d2 0100 	ldr.w	r0, [r2, #256]	; 0x100
+878000ba:	f000 30c0 	and.w	r0, r0, #3233857728	; 0xc0c0c0c0
+878000be:	4305      	orrs	r5, r0
+878000c0:	f8c2 5100 	str.w	r5, [r2, #256]	; 0x100
+878000c4:	f8d2 00f0 	ldr.w	r0, [r2, #240]	; 0xf0
+878000c8:	f000 30c0 	and.w	r0, r0, #3233857728	; 0xc0c0c0c0
+878000cc:	4304      	orrs	r4, r0
+878000ce:	f8c2 40f0 	str.w	r4, [r2, #240]	; 0xf0
+878000d2:	699a      	ldr	r2, [r3, #24]
+878000d4:	f422 2240 	bic.w	r2, r2, #786432	; 0xc0000
+878000d8:	619a      	str	r2, [r3, #24]
+878000da:	699a      	ldr	r2, [r3, #24]
+878000dc:	f442 2280 	orr.w	r2, r2, #262144	; 0x40000
+878000e0:	619a      	str	r2, [r3, #24]
+878000e2:	695a      	ldr	r2, [r3, #20]
+878000e4:	f022 7200 	bic.w	r2, r2, #33554432	; 0x2000000
+878000e8:	615a      	str	r2, [r3, #20]
+878000ea:	6c8a      	ldr	r2, [r1, #72]	; 0x48
+878000ec:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+878000f0:	f2c0 230c 	movt	r3, #524	; 0x20c
+878000f4:	0692      	lsls	r2, r2, #26
+878000f6:	d4f8      	bmi.n	878000ea <Driver_CLK_Init+0x8e>
+878000f8:	695a      	ldr	r2, [r3, #20]
+878000fa:	bc70      	pop	{r4, r5, r6}
+878000fc:	f422 7240 	bic.w	r2, r2, #768	; 0x300
+87800100:	615a      	str	r2, [r3, #20]
+87800102:	695a      	ldr	r2, [r3, #20]
+87800104:	f442 7280 	orr.w	r2, r2, #256	; 0x100
+87800108:	615a      	str	r2, [r3, #20]
+8780010a:	69da      	ldr	r2, [r3, #28]
+8780010c:	f022 0240 	bic.w	r2, r2, #64	; 0x40
+87800110:	61da      	str	r2, [r3, #28]
+87800112:	69da      	ldr	r2, [r3, #28]
+87800114:	f422 627c 	bic.w	r2, r2, #4032	; 0xfc0
+87800118:	61da      	str	r2, [r3, #28]
+8780011a:	4770      	bx	lr
+
+8780011c <Driver_CLK_Enable>:
+8780011c:	f44f 4380 	mov.w	r3, #16384	; 0x4000
+87800120:	f04f 32ff 	mov.w	r2, #4294967295	; 0xffffffff
+87800124:	f2c0 230c 	movt	r3, #524	; 0x20c
+87800128:	669a      	str	r2, [r3, #104]	; 0x68
+8780012a:	66da      	str	r2, [r3, #108]	; 0x6c
+8780012c:	671a      	str	r2, [r3, #112]	; 0x70
+8780012e:	675a      	str	r2, [r3, #116]	; 0x74
+87800130:	679a      	str	r2, [r3, #120]	; 0x78
+87800132:	67da      	str	r2, [r3, #124]	; 0x7c
+87800134:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+87800138:	4770      	bx	lr
+8780013a:	bf00      	nop
+
+8780013c <Driver_GPIO_Init>:
+8780013c:	6813      	ldr	r3, [r2, #0]
+8780013e:	b19b      	cbz	r3, 87800168 <Driver_GPIO_Init+0x2c>
+87800140:	2b01      	cmp	r3, #1
+87800142:	d110      	bne.n	87800166 <Driver_GPIO_Init+0x2a>
+87800144:	b410      	push	{r4}
+87800146:	408b      	lsls	r3, r1
+87800148:	6844      	ldr	r4, [r0, #4]
+8780014a:	6851      	ldr	r1, [r2, #4]
+8780014c:	ea43 0204 	orr.w	r2, r3, r4
+87800150:	f85d 4b04 	ldr.w	r4, [sp], #4
+87800154:	6042      	str	r2, [r0, #4]
+87800156:	6802      	ldr	r2, [r0, #0]
+87800158:	2901      	cmp	r1, #1
+8780015a:	bf0c      	ite	eq
+8780015c:	4313      	orreq	r3, r2
+8780015e:	ea22 0303 	bicne.w	r3, r2, r3
+87800162:	6003      	str	r3, [r0, #0]
+87800164:	4770      	bx	lr
+87800166:	4770      	bx	lr
+87800168:	6842      	ldr	r2, [r0, #4]
+8780016a:	2301      	movs	r3, #1
+8780016c:	408b      	lsls	r3, r1
+8780016e:	ea22 0303 	bic.w	r3, r2, r3
+87800172:	6043      	str	r3, [r0, #4]
+87800174:	4770      	bx	lr
+87800176:	bf00      	nop
+
+87800178 <Driver_GPIO_ReadPin>:
+87800178:	6802      	ldr	r2, [r0, #0]
+8780017a:	2301      	movs	r3, #1
+8780017c:	408b      	lsls	r3, r1
+8780017e:	4213      	tst	r3, r2
+87800180:	bf14      	ite	ne
+87800182:	2001      	movne	r0, #1
+87800184:	2000      	moveq	r0, #0
+87800186:	4770      	bx	lr
+
+87800188 <Driver_GPIO_WritePIn>:
+87800188:	2a01      	cmp	r2, #1
+8780018a:	bf15      	itete	ne
+8780018c:	2301      	movne	r3, #1
+8780018e:	6803      	ldreq	r3, [r0, #0]
+87800190:	6802      	ldrne	r2, [r0, #0]
+87800192:	408a      	lsleq	r2, r1
+87800194:	bf15      	itete	ne
+87800196:	408b      	lslne	r3, r1
+87800198:	431a      	orreq	r2, r3
+8780019a:	ea22 0303 	bicne.w	r3, r2, r3
+8780019e:	6002      	streq	r2, [r0, #0]
+878001a0:	bf18      	it	ne
+878001a2:	6003      	strne	r3, [r0, #0]
+878001a4:	4770      	bx	lr
+878001a6:	bf00      	nop
+
+878001a8 <Bsp_Led_Init>:
+878001a8:	2268      	movs	r2, #104	; 0x68
+878001aa:	f44f 733d 	mov.w	r3, #756	; 0x2f4
+878001ae:	b510      	push	{r4, lr}
+878001b0:	f2c0 220e 	movt	r2, #526	; 0x20e
+878001b4:	b082      	sub	sp, #8
+878001b6:	2405      	movs	r4, #5
+878001b8:	f2c0 230e 	movt	r3, #526	; 0x20e
+878001bc:	f241 01b0 	movw	r1, #4272	; 0x10b0
+878001c0:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878001c4:	6014      	str	r4, [r2, #0]
+878001c6:	f2c0 2009 	movt	r0, #521	; 0x209
+878001ca:	6019      	str	r1, [r3, #0]
+878001cc:	2401      	movs	r4, #1
+878001ce:	2300      	movs	r3, #0
+878001d0:	466a      	mov	r2, sp
+878001d2:	2103      	movs	r1, #3
+878001d4:	9400      	str	r4, [sp, #0]
+878001d6:	9301      	str	r3, [sp, #4]
+878001d8:	f7ff ffb0 	bl	8780013c <Driver_GPIO_Init>
+878001dc:	b002      	add	sp, #8
+878001de:	bd10      	pop	{r4, pc}
+
+878001e0 <Bsp_Led_On>:
+878001e0:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878001e4:	2200      	movs	r2, #0
+878001e6:	f2c0 2009 	movt	r0, #521	; 0x209
+878001ea:	2103      	movs	r1, #3
+878001ec:	f7ff bfcc 	b.w	87800188 <Driver_GPIO_WritePIn>
+
+878001f0 <Bsp_Led_Off>:
+878001f0:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878001f4:	2201      	movs	r2, #1
+878001f6:	f2c0 2009 	movt	r0, #521	; 0x209
+878001fa:	2103      	movs	r1, #3
+878001fc:	f7ff bfc4 	b.w	87800188 <Driver_GPIO_WritePIn>
+
+87800200 <Bsp_Led_Switch>:
+87800200:	b150      	cbz	r0, 87800218 <Bsp_Led_Switch+0x18>
+87800202:	2801      	cmp	r0, #1
+87800204:	d107      	bne.n	87800216 <Bsp_Led_Switch+0x16>
+87800206:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+8780020a:	2200      	movs	r2, #0
+8780020c:	f2c0 2009 	movt	r0, #521	; 0x209
+87800210:	2103      	movs	r1, #3
+87800212:	f7ff bfb9 	b.w	87800188 <Driver_GPIO_WritePIn>
+87800216:	4770      	bx	lr
+87800218:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+8780021c:	2201      	movs	r2, #1
+8780021e:	f2c0 2009 	movt	r0, #521	; 0x209
+87800222:	2103      	movs	r1, #3
+87800224:	f7ff bfb0 	b.w	87800188 <Driver_GPIO_WritePIn>
+
+87800228 <Bsp_Beep_Init>:
+87800228:	210c      	movs	r1, #12
+8780022a:	2250      	movs	r2, #80	; 0x50
+8780022c:	b530      	push	{r4, r5, lr}
+8780022e:	2301      	movs	r3, #1
+87800230:	b083      	sub	sp, #12
+87800232:	f2c0 2129 	movt	r1, #553	; 0x229
+87800236:	2505      	movs	r5, #5
+87800238:	f2c0 2229 	movt	r2, #553	; 0x229
+8780023c:	f241 04b0 	movw	r4, #4272	; 0x10b0
+87800240:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+87800244:	600d      	str	r5, [r1, #0]
+87800246:	f2c0 200a 	movt	r0, #522	; 0x20a
+8780024a:	6014      	str	r4, [r2, #0]
+8780024c:	4619      	mov	r1, r3
+8780024e:	466a      	mov	r2, sp
+87800250:	9300      	str	r3, [sp, #0]
+87800252:	9301      	str	r3, [sp, #4]
+87800254:	f7ff ff72 	bl	8780013c <Driver_GPIO_Init>
+87800258:	b003      	add	sp, #12
+8780025a:	bd30      	pop	{r4, r5, pc}
+
+8780025c <Bsp_Beep_Control>:
+8780025c:	b150      	cbz	r0, 87800274 <Bsp_Beep_Control+0x18>
+8780025e:	2801      	cmp	r0, #1
+87800260:	d110      	bne.n	87800284 <Bsp_Beep_Control+0x28>
+87800262:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+87800266:	f2c0 230a 	movt	r3, #522	; 0x20a
+8780026a:	681a      	ldr	r2, [r3, #0]
+8780026c:	f022 0202 	bic.w	r2, r2, #2
+87800270:	601a      	str	r2, [r3, #0]
+87800272:	4770      	bx	lr
+87800274:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+87800278:	f2c0 230a 	movt	r3, #522	; 0x20a
+8780027c:	681a      	ldr	r2, [r3, #0]
+8780027e:	f042 0202 	orr.w	r2, r2, #2
+87800282:	601a      	str	r2, [r3, #0]
+87800284:	4770      	bx	lr
+87800286:	bf00      	nop
+
+87800288 <Bsp_Key_Init>:
+87800288:	b570      	push	{r4, r5, r6, lr}
+8780028a:	218c      	movs	r1, #140	; 0x8c
+8780028c:	b082      	sub	sp, #8
+8780028e:	f44f 7346 	mov.w	r3, #792	; 0x318
+87800292:	f2c0 230e 	movt	r3, #526	; 0x20e
+87800296:	aa02      	add	r2, sp, #8
+87800298:	f2c0 210e 	movt	r1, #526	; 0x20e
+8780029c:	2605      	movs	r6, #5
+8780029e:	f24f 0580 	movw	r5, #61568	; 0xf080
+878002a2:	2400      	movs	r4, #0
+878002a4:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878002a8:	600e      	str	r6, [r1, #0]
+878002aa:	f2c0 2009 	movt	r0, #521	; 0x209
+878002ae:	601d      	str	r5, [r3, #0]
+878002b0:	2112      	movs	r1, #18
+878002b2:	f842 4d08 	str.w	r4, [r2, #-8]!
+878002b6:	f7ff ff41 	bl	8780013c <Driver_GPIO_Init>
+878002ba:	b002      	add	sp, #8
+878002bc:	bd70      	pop	{r4, r5, r6, pc}
+878002be:	bf00      	nop
+
+878002c0 <Bsp_Key_DetectPressEvent>:
+878002c0:	b538      	push	{r3, r4, r5, lr}
+878002c2:	f240 34c4 	movw	r4, #964	; 0x3c4
+878002c6:	f2c8 7480 	movt	r4, #34688	; 0x8780
+878002ca:	6825      	ldr	r5, [r4, #0]
+878002cc:	2d01      	cmp	r5, #1
+878002ce:	d00e      	beq.n	878002ee <Bsp_Key_DetectPressEvent+0x2e>
+878002d0:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878002d4:	2112      	movs	r1, #18
+878002d6:	f2c0 2009 	movt	r0, #521	; 0x209
+878002da:	f7ff ff4d 	bl	87800178 <Driver_GPIO_ReadPin>
+878002de:	2801      	cmp	r0, #1
+878002e0:	4603      	mov	r3, r0
+878002e2:	d001      	beq.n	878002e8 <Bsp_Key_DetectPressEvent+0x28>
+878002e4:	2000      	movs	r0, #0
+878002e6:	bd38      	pop	{r3, r4, r5, pc}
+878002e8:	2000      	movs	r0, #0
+878002ea:	6023      	str	r3, [r4, #0]
+878002ec:	bd38      	pop	{r3, r4, r5, pc}
+878002ee:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+878002f2:	2112      	movs	r1, #18
+878002f4:	f2c0 2009 	movt	r0, #521	; 0x209
+878002f8:	f7ff ff3e 	bl	87800178 <Driver_GPIO_ReadPin>
+878002fc:	2801      	cmp	r0, #1
+878002fe:	d0e7      	beq.n	878002d0 <Bsp_Key_DetectPressEvent+0x10>
+87800300:	200a      	movs	r0, #10
+87800302:	f000 f817 	bl	87800334 <Bsp_Delay>
+87800306:	f44f 4040 	mov.w	r0, #49152	; 0xc000
+8780030a:	2112      	movs	r1, #18
+8780030c:	f2c0 2009 	movt	r0, #521	; 0x209
+87800310:	f7ff ff32 	bl	87800178 <Driver_GPIO_ReadPin>
+87800314:	2801      	cmp	r0, #1
+87800316:	d0e5      	beq.n	878002e4 <Bsp_Key_DetectPressEvent+0x24>
+87800318:	2300      	movs	r3, #0
+8780031a:	4628      	mov	r0, r5
+8780031c:	6023      	str	r3, [r4, #0]
+8780031e:	bd38      	pop	{r3, r4, r5, pc}
+
+87800320 <Bsp_Delay_Short>:
+87800320:	b082      	sub	sp, #8
+87800322:	9001      	str	r0, [sp, #4]
+87800324:	9b01      	ldr	r3, [sp, #4]
+87800326:	1e5a      	subs	r2, r3, #1
+87800328:	9201      	str	r2, [sp, #4]
+8780032a:	2b00      	cmp	r3, #0
+8780032c:	d1fa      	bne.n	87800324 <Bsp_Delay_Short+0x4>
+8780032e:	b002      	add	sp, #8
+87800330:	4770      	bx	lr
+87800332:	bf00      	nop
+
+87800334 <Bsp_Delay>:
+87800334:	b082      	sub	sp, #8
+87800336:	9001      	str	r0, [sp, #4]
+87800338:	9b01      	ldr	r3, [sp, #4]
+8780033a:	1e5a      	subs	r2, r3, #1
+8780033c:	9201      	str	r2, [sp, #4]
+8780033e:	b153      	cbz	r3, 87800356 <Bsp_Delay+0x22>
+87800340:	f240 73ff 	movw	r3, #2047	; 0x7ff
+87800344:	461a      	mov	r2, r3
+87800346:	3b01      	subs	r3, #1
+87800348:	2a00      	cmp	r2, #0
+8780034a:	d1fb      	bne.n	87800344 <Bsp_Delay+0x10>
+8780034c:	9b01      	ldr	r3, [sp, #4]
+8780034e:	1e5a      	subs	r2, r3, #1
+87800350:	9201      	str	r2, [sp, #4]
+87800352:	2b00      	cmp	r3, #0
+87800354:	d1f4      	bne.n	87800340 <Bsp_Delay+0xc>
+87800356:	b002      	add	sp, #8
+87800358:	4770      	bx	lr
+8780035a:	bf00      	nop
+8780035c:	0000      	movs	r0, r0
+	...
+
+87800360 <__main_from_arm>:
+87800360:	e51ff004 	ldr	pc, [pc, #-4]	; 87800364 <__main_from_arm+0x4>
+87800364:	87800369 	strhi	r0, [r0, r9, ror #6]
+
+Disassembly of section .text.startup:
+
+87800368 <main>:
+87800368:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+8780036a:	2601      	movs	r6, #1
+8780036c:	2500      	movs	r5, #0
+8780036e:	4637      	mov	r7, r6
+87800370:	f7ff fe74 	bl	8780005c <Driver_CLK_Init>
+87800374:	f7ff fed2 	bl	8780011c <Driver_CLK_Enable>
+87800378:	f7ff ff16 	bl	878001a8 <Bsp_Led_Init>
+8780037c:	f7ff ff54 	bl	87800228 <Bsp_Beep_Init>
+87800380:	f7ff ff82 	bl	87800288 <Bsp_Key_Init>
+87800384:	e008      	b.n	87800398 <main+0x30>
+87800386:	2d32      	cmp	r5, #50	; 0x32
+87800388:	f105 0401 	add.w	r4, r5, #1
+8780038c:	b2e4      	uxtb	r4, r4
+8780038e:	d010      	beq.n	878003b2 <main+0x4a>
+87800390:	200a      	movs	r0, #10
+87800392:	4625      	mov	r5, r4
+87800394:	f7ff ffce 	bl	87800334 <Bsp_Delay>
+87800398:	f7ff ff92 	bl	878002c0 <Bsp_Key_DetectPressEvent>
+8780039c:	2801      	cmp	r0, #1
+8780039e:	d1f2      	bne.n	87800386 <main+0x1e>
+878003a0:	4630      	mov	r0, r6
+878003a2:	1c6c      	adds	r4, r5, #1
+878003a4:	f7ff ff5a 	bl	8780025c <Bsp_Beep_Control>
+878003a8:	2d32      	cmp	r5, #50	; 0x32
+878003aa:	f086 0601 	eor.w	r6, r6, #1
+878003ae:	b2e4      	uxtb	r4, r4
+878003b0:	d1ee      	bne.n	87800390 <main+0x28>
+878003b2:	4638      	mov	r0, r7
+878003b4:	2400      	movs	r4, #0
+878003b6:	f087 0701 	eor.w	r7, r7, #1
+878003ba:	f7ff ff21 	bl	87800200 <Bsp_Led_Switch>
+878003be:	e7e7      	b.n	87800390 <main+0x28>
+
+Disassembly of section .data:
+
+878003c0 <a>:
+878003c0:	00000001 	andeq	r0, r0, r1
+
+878003c4 <lastStatus.7430>:
+878003c4:	00000001 	andeq	r0, r0, r1
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	3a434347 	bcc	10d0d24 <_bss_start-0x8672f2dc>
+   4:	694c2820 	stmdbvs	ip, {r5, fp, sp}^
+   8:	6f72616e 	svcvs	0x0072616e
+   c:	43434720 	movtmi	r4, #14112	; 0x3720
+  10:	392e3420 	stmdbcc	lr!, {r5, sl, ip, sp}
+  14:	3130322d 	teqcc	r0, sp, lsr #4
+  18:	31302e37 	teqcc	r0, r7, lsr lr
+  1c:	2e342029 	cdpcs	0, 3, cr2, cr4, cr9, {1}
+  20:	00342e39 	eorseq	r2, r4, r9, lsr lr
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00003041 	andeq	r3, r0, r1, asr #32
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	00000026 	andeq	r0, r0, r6, lsr #32
+  10:	412d3705 	teqmi	sp, r5, lsl #14
+  14:	070a0600 	streq	r0, [sl, -r0, lsl #12]
+  18:	09010841 	stmdbeq	r1, {r0, r6, fp}
+  1c:	12040a02 	andne	r0, r4, #8192	; 0x2000
+  20:	15011404 	strne	r1, [r1, #-1028]	; 0x404
+  24:	18031701 	stmdane	r3, {r0, r8, r9, sl, ip}
+  28:	1b021a01 	blne	86834 <_bss_start-0x877797cc>
+  2c:	22011c03 	andcs	r1, r1, #768	; 0x300
+  30:	Address 0x0000000000000030 is out of bounds.
+
