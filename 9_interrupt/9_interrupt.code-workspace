@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"driver_interrupt.h": "c",
+			"imx6ull.h": "c",
+			"mcimx6y2.h": "c",
+			"fsl_iomuxc.h": "c",
+			"driver_gpio.h": "c",
+			"driver_exti.h": "c",
+			"bsp_beep.h": "c",
+			"fsl_common.h": "c",
+			"driver_clk.h": "c",
+			"bsp_delay.h": "c",
+			"bsp_led.h": "c",
+			"core_ca7.h": "c",
+			"driver_epit.h": "c"
+		}
+	}
+}
