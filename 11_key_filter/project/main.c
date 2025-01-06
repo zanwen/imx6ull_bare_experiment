@@ -7,6 +7,7 @@
 #include "driver_epit.h"
 #include "driver_exti.h"
 #include "driver_interrupt.h"
+#include "bsp_key_filter.h"
 
 volatile uint8_t a = 1;
 // volatile uint8_t b = 2;
@@ -14,13 +15,14 @@ volatile uint8_t a = 1;
 
 int main() {
     Driver_INT_Init();
-    Driver_Exti_Init();
     Driver_CLK_Init();
     Driver_CLK_Enable();
     Bsp_Led_Init();
     Bsp_Beep_Init();
-    Bsp_Key_Init();
-    Driver_EPIT_Init(0, 66000000 / 2); // 66M 1分频，中断频率66M/33M=2HZ
+    // Bsp_Key_Init();
+    // Driver_Exti_Init();
+    // Driver_EPIT_Init(0, 66000000 / 2); // 66M 1分频，定时周期0.5s
+    Bsp_KeyFilter_Init();
 
     // uint8_t cnt = 0;
     // SwitchStatus_t ledStatus = ON;

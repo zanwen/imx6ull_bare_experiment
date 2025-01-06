@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/bsp",
+                "${workspaceFolder}/bsp/beep",
+                "${workspaceFolder}/bsp/delay",
+                "${workspaceFolder}/bsp/key",
+                "${workspaceFolder}/bsp/led",
+                "${workspaceFolder}/driver/clk",
+                "${workspaceFolder}/driver/exti",
+                "${workspaceFolder}/driver/gpio",
+                "${workspaceFolder}/driver/interrupt",
+                "${workspaceFolder}/project",
+                "${workspaceFolder}/sdk"
+            ],
+            "defines": [],
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-arm",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}
