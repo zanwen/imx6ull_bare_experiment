@@ -42,3 +42,23 @@ void Driver_Uart_SendByte(uint8_t data) {
         ;
     UART1->UTXD = data & 0xFF;
 }
+
+unsigned char getc() {
+    while ((UART1->USR2 & 0x1) == 0)
+        ;
+    return UART1->URXD;
+}
+
+void putc(unsigned char c) {
+    while ((UART1->USR2 & (0x1 << 3)) == 0)
+        ;
+    UART1->UTXD = c & 0xFF;
+}
+
+/*
+ * @description : 防止编译器报错
+ * @param 		: 无
+ * @return		: 无
+ */
+void raise(int sig_nr) {
+}

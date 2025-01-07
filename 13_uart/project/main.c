@@ -9,6 +9,7 @@
 #include "driver_exti.h"
 #include "driver_interrupt.h"
 #include "driver_uart.h"
+#include "stdio.h"
 
 // volatile uint8_t a = 1;
 // volatile uint8_t b = 2;
@@ -31,7 +32,11 @@ int main() {
     // SwitchStatus_t ledStatus = ON;
     // SwitchStatus_t beepStatus = ON;
     // KeyNo_t keyNo;
-    Driver_Uart_SendByte((uint8_t)'a');
+    // Driver_Uart_SendByte((uint8_t)'a');
+    int a, b;
+    printf("请输入两个数：\r\n");
+    scanf("%d %d", &a, &b);
+    printf("%d + %d = %d\r\n", a, b, a + b);
     while (1) {
         Bsp_Led_On();
         Driver_Delay_MS(600);

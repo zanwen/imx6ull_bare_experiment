@@ -20,7 +20,8 @@ INCLUDE_DIRS 		:= sdk					\
 					   bsp/led				\
 					   bsp/beep				\
 					   bsp/key				\
-					   bsp/key_filter
+					   bsp/key_filter		\
+					   stdio/include
 
 # 所有源文件路径
 SRC_DIRS			:= sdk					\
@@ -35,14 +36,15 @@ SRC_DIRS			:= sdk					\
 					   bsp/led				\
 					   bsp/beep				\
 					   bsp/key				\
-					   bsp/key_filter
+					   bsp/key_filter		\
+					   stdio/lib
 
 # 目标文件路径
 OBJ_DIR			    := obj
 
 # 头文件路径编译参数
 INCLUDE_FLAGS		:= $(patsubst %, -I %, $(INCLUDE_DIRS))
-C_FLAGS 			:= -Wall -nostdlib -O2 -std=c99 $(INCLUDE_FLAGS)
+LIBPATH			    := -lgcc -L /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/4.9.4
 
 # 遍历源文件路径，找出所有.s和.o文件
 S_FILES			    := $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.S))
@@ -64,16 +66,16 @@ VPATH				:= $(SRC_DIRS)
 
 # 链接
 $(TARGET).bin : $(OBJS)
-	$(LD) -T imx6ull.lds $^ -o $(TARGET).elf
+	$(LD) -T imx6ull.lds $^ -o $(TARGET).elf $(LIBPATH)
 	$(OBJCOPY) -O binary -S $(TARGET).elf $@
 	$(OBJDUMP) -D -m arm $(TARGET).elf > $(TARGET).dis
 
 # 编译
 $(S_OBJS) : $(OBJ_DIR)/%.o : %.S
-	$(CC) $(C_FLAGS) -c $< -o $@
+	$(CC) -Wall -nostdlib -fno-builtin -c -O2 $(INCLUDE_FLAGS) -c $< -o $@
 
 $(C_OBJS) : $(OBJ_DIR)/%.o : %.c
-	$(CC) $(C_FLAGS) -c $< -o $@
+	$(CC) -Wall -Wa,-mimplicit-it=thumb -nostdlib -fno-builtin -O2 -std=gnu99 $(INCLUDE_FLAGS) -c $< -o $@
 
 
 clean: 
