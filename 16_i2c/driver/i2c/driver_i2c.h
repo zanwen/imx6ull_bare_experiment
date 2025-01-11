@@ -7,6 +7,7 @@
 
 #include "imx6ull.h"
 
+#define DEV_ADDR 0x1E
 void Driver_I2C_Init(I2C_Type *base);
 void Driver_I2C_Start(I2C_Type *base);
 void Driver_I2C_ReStart(I2C_Type *base);

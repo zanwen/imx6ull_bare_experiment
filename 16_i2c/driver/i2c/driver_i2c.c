@@ -147,13 +147,13 @@ void Driver_I2C_Test(void) {
     Driver_I2C_Init(I2C1);
 
     uint8_t data = 0x04;
-    Driver_I2C_MasterWrite(I2C1, 0x1E, 0x00, &data, 1);
+    Driver_I2C_MasterWrite(I2C1, DEV_ADDR, 0x00, &data, 1);
     Driver_Delay_MS(10);
     data = 0x03;
-    Driver_I2C_MasterWrite(I2C1, 0x1E, 0x00, &data, 1);
+    Driver_I2C_MasterWrite(I2C1, DEV_ADDR, 0x00, &data, 1);
 
     uint8_t buf[1] = {0};
-    Driver_I2C_MasterRead(I2C1, 0x1E, 0x00, buf, 1);
+    Driver_I2C_MasterRead(I2C1, DEV_ADDR, 0x00, buf, 1);
     LOG_DEBUG("buf = %#x", buf[0]);
     LOG_DEBUG("Driver_I2C_Test done");
 
@@ -161,10 +161,10 @@ void Driver_I2C_Test(void) {
     uint8_t psData[2] = {0};
     uint16_t als = 0, ps = 0;
     while(1) {
-        Driver_I2C_MasterRead(I2C1, 0x1E, 0x0C, alsData, 2);
-        Driver_I2C_MasterRead(I2C1, 0x1E, 0x0E, psData, 2);
+        Driver_I2C_MasterRead(I2C1, DEV_ADDR, 0x0C, alsData, 2);
+        Driver_I2C_MasterRead(I2C1, DEV_ADDR, 0x0E, psData, 2);
         als = (alsData[1] << 8) | alsData[0];
-        ps = ((alsData[1] & 0x3F) << 4) | (alsData[0] & 0xF);
+        ps = ((psData[1] & 0x3F) << 4) | (psData[0] & 0xF);
         LOG_DEBUG("als = %d, ps = %d", als, ps);
         Driver_Delay_MS(500);
     }
