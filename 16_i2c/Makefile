@@ -1,5 +1,5 @@
 CROSS_COMPILE 		?=  /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
-TARGET 				?= rtc
+TARGET 				?= i2c
 
 CC					:= $(CROSS_COMPILE)gcc
 LD					:= $(CROSS_COMPILE)ld
@@ -15,6 +15,7 @@ INCLUDE_DIRS 		:= sdk					\
 					   driver/epit			\
 					   driver/delay			\
 					   driver/uart			\
+					   driver/i2c			\
 					   project 				\
 					   bsp					\
 					   bsp/led				\
@@ -35,6 +36,7 @@ SRC_DIRS			:= sdk					\
 					   driver/exti			\
 					   driver/delay			\
 					   driver/uart			\
+					   driver/i2c			\
 					   project 				\
 					   bsp/led				\
 					   bsp/beep				\
