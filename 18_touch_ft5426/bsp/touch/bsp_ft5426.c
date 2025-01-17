@@ -79,7 +79,6 @@ void Bsp_FT5426_INTCallback(uint32_t GICC_IAR, void *params) {
     Driver_GPIO_ClearINTFlag(FT5426_INT_GPIO_PIN);
     if (ft5426_device.initfalg) {
         Bsp_FT5426_ReadCoord();
-        LOG_DEBUG("x = %u, y = %u", ft5426_device.x[0], ft5426_device.y[0]);
     }
 }
 

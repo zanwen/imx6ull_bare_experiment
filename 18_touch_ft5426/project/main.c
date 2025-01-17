@@ -16,6 +16,7 @@
 #include "driver_uart.h"
 #include "stdio.h"
 #include "bsp_ft5426.h"
+#include "logger.h"
 
 /* 背景颜色索引 */
 unsigned int backcolor[10] = {
@@ -44,72 +45,47 @@ int main() {
     rtc_init();
     Bsp_FT5426_Init();
 
-    KeyNo_t key;
-    SwitchStatus_t status = ON;
+    tftlcd_dev.forecolor = LCD_RED;
+    lcd_show_string(50, 10, 400, 24, 24, (char *) "IMX6U-ALPHA TOUCH SCREEN TEST");
+    lcd_show_string(50, 40, 200, 16, 16, (char *) "TOUCH SCREEN TEST");
+    lcd_show_string(50, 60, 200, 16, 16, (char *) "ATOM@ALIENTEK");
+    lcd_show_string(50, 80, 200, 16, 16, (char *) "2019/3/27");
+
+    lcd_show_string(50, 110, 400, 16, 16, (char *) "TP Num	:");
+    lcd_show_string(50, 130, 200, 16, 16, (char *) "Point0 X:");
+    lcd_show_string(50, 150, 200, 16, 16, (char *) "Point0 Y:");
+    lcd_show_string(50, 170, 200, 16, 16, (char *) "Point1 X:");
+    lcd_show_string(50, 190, 200, 16, 16, (char *) "Point1 Y:");
+    lcd_show_string(50, 210, 200, 16, 16, (char *) "Point2 X:");
+    lcd_show_string(50, 230, 200, 16, 16, (char *) "Point2 Y:");
+    lcd_show_string(50, 250, 200, 16, 16, (char *) "Point3 X:");
+    lcd_show_string(50, 270, 200, 16, 16, (char *) "Point3 Y:");
+    lcd_show_string(50, 290, 200, 16, 16, (char *) "Point4 X:");
+    lcd_show_string(50, 310, 200, 16, 16, (char *) "Point4 Y:");
+    tftlcd_dev.forecolor = LCD_BLUE;
+
+    unsigned char i = 0;
+    unsigned char state = OFF;
     while (1) {
-        key = Bsp_Key_DetectPressEvent();
-        if (key == KEY0) {
-            Bsp_FT5426_Test();
-            status = !status;
-            Bsp_Led_Switch(status);
+        lcd_shownum(50 + 72, 110, ft5426_device.point_num, 1, 16);
+        lcd_shownum(50 + 72, 130, ft5426_device.x[0], 5, 16);
+        lcd_shownum(50 + 72, 150, ft5426_device.y[0], 5, 16);
+        lcd_shownum(50 + 72, 170, ft5426_device.x[1], 5, 16);
+        lcd_shownum(50 + 72, 190, ft5426_device.y[1], 5, 16);
+        lcd_shownum(50 + 72, 210, ft5426_device.x[2], 5, 16);
+        lcd_shownum(50 + 72, 230, ft5426_device.y[2], 5, 16);
+        lcd_shownum(50 + 72, 250, ft5426_device.x[3], 5, 16);
+        lcd_shownum(50 + 72, 270, ft5426_device.y[3], 5, 16);
+        lcd_shownum(50 + 72, 290, ft5426_device.x[4], 5, 16);
+        lcd_shownum(50 + 72, 310, ft5426_device.y[4], 5, 16);
+        Driver_Delay_MS(10);
+        i++;
+
+        if (i == 50) {
+            i = 0;
+            state = !state;
+            Bsp_Led_Switch(state);
         }
     }
-
-    //    KeyNo_t key = 0;
-    //    int i = 3, t = 0;
-    //    char buf[160];
-    //    struct rtc_datetime rtcdate;
-    //    SwitchStatus_t state = OFF;
-    //    tftlcd_dev.forecolor = LCD_RED;
-    //    lcd_show_string(50, 10, 400, 24, 24, (char *) "ALPHA-IMX6UL RTC TEST"); /* 显示字符串 */
-    //    lcd_show_string(50, 40, 200, 16, 16, (char *) "ATOM@ALIENTEK");
-    //    lcd_show_string(50, 60, 200, 16, 16, (char *) "2019/3/27");
-    //    tftlcd_dev.forecolor = LCD_BLUE;
-    //    memset(buf, 0, sizeof(buf));
-    //
-    //    while (1) {
-    //        if (t == 100)//1s时间到了
-    //        {
-    //            t = 0;
-    //            printf("will be running %d s......\r", i);
-    //
-    //            lcd_fill(50, 90, 370, 110, tftlcd_dev.backcolor); /* 清屏 */
-    //            sprintf(buf, "will be running %ds......", i);
-    //            lcd_show_string(50, 90, 300, 16, 16, buf);
-    //            i--;
-    //            if (i < 0)
-    //                break;
-    //        }
-    //
-    //        key = Bsp_Key_DetectPressEvent();
-    //        if (key == KEY0) {
-    //            rtcdate.year = 2018;
-    //            rtcdate.month = 1;
-    //            rtcdate.day = 15;
-    //            rtcdate.hour = 16;
-    //            rtcdate.minute = 23;
-    //            rtcdate.second = 0;
-    //            rtc_setdatetime(&rtcdate); /* 初始化时间和日期 */
-    //            printf("\r\n RTC Init finish\r\n");
-    //            break;
-    //        }
-    //
-    //        Driver_Delay_MS(10);
-    //        t++;
-    //    }
-    //    tftlcd_dev.forecolor = LCD_RED;
-    //    lcd_fill(50, 90, 370, 110, tftlcd_dev.backcolor);               /* 清屏 */
-    //    lcd_show_string(50, 90, 200, 16, 16, (char *) "Current Time:"); /* 显示字符串 */
-    //    tftlcd_dev.forecolor = LCD_BLUE;
-    //
-    //    while (1) {
-    //        rtc_getdatetime(&rtcdate);
-    //        sprintf(buf, "%d/%d/%d %d:%d:%d", rtcdate.year, rtcdate.month, rtcdate.day, rtcdate.hour, rtcdate.minute, rtcdate.second);
-    //        lcd_fill(50, 110, 300, 130, tftlcd_dev.backcolor);
-    //        lcd_show_string(50, 110, 250, 16, 16, (char *) buf); /* 显示字符串 */
-    //
-    //        state = !state;
-    //        Bsp_Led_Switch(state);
-    //        Driver_Delay_MS(1000); /* 延时一秒 */
-    //    }
+    return 0;
 }
