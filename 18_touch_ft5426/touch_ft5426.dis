@@ -3751,7 +3751,7 @@ Disassembly of section .text:
 
 878027a4 <Bsp_FT5426_Init>:
 878027a4:	b508      	push	{r3, lr}
-878027a6:	f7ff ff7d 	bl	878026a4 <Bsp_FT5426_InitIO>
+878027a6:	f7ff ff7d 	bl	878026a4 <Bsp_FT5426_PadInit>
 878027aa:	f44f 4080 	mov.w	r0, #16384	; 0x4000
 878027ae:	f2c0 201a 	movt	r0, #538	; 0x21a
 878027b2:	f7fe f8ff 	bl	878009b4 <Driver_I2C_Init>

@@ -18,6 +18,7 @@
 #include "bsp_ft5426.h"
 #include "logger.h"
 #include "bsp_ov5640.h"
+#include "driver_csi.h"
 
 /* 背景颜色索引 */
 unsigned int backcolor[10] = {
@@ -42,10 +43,12 @@ int main() {
     Bsp_Key_Init();
     Driver_Delay_Init();
     Driver_UART_Init();
-    Bsp_LCD_Init();
+//    Bsp_LCD_Init();
+    Bsp_LCD_InitRGB565();
     rtc_init();
 //    Bsp_FT5426_Init();
     Bsp_OV5640_Init();
+    Driver_CSI_Init();
     
     SwitchStatus_t state = OFF;
     while (1) {

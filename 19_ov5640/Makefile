@@ -1,5 +1,5 @@
 CROSS_COMPILE 		?=  /usr/local/arm/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
-TARGET 				?= touch_ft5426
+TARGET 				?= ov5640
 
 CC					:= $(CROSS_COMPILE)gcc
 LD					:= $(CROSS_COMPILE)ld
@@ -16,6 +16,7 @@ INCLUDE_DIRS 		:= sdk					\
 					   driver/delay			\
 					   driver/uart			\
 					   driver/i2c			\
+					   driver/csi			\
 					   project 				\
 					   bsp					\
 					   bsp/led				\
@@ -40,6 +41,7 @@ SRC_DIRS			:= sdk					\
 					   driver/delay			\
 					   driver/uart			\
 					   driver/i2c			\
+					   driver/csi			\
 					   project 				\
 					   bsp/led				\
 					   bsp/beep				\

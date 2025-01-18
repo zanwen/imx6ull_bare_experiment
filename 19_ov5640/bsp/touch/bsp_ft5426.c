@@ -41,14 +41,14 @@ void Bsp_FT5426_WriteBytes(uint8_t regAddr, uint8_t *data, uint8_t len);
 
 void Bsp_FT5426_ReadBytes(uint8_t regAddr, uint8_t *buf, uint8_t len);
 
-void Bsp_FT5426_PadInit(void);
+void Bsp_FT5426_IOInit(void);
 
 void Bsp_FT5426_ResetAndInit(void);
 
 void Bsp_FT5426_ReadCoord(void);
 
 void Bsp_FT5426_Init(void) {
-    Bsp_FT5426_PadInit();
+    Bsp_FT5426_IOInit();
     Driver_I2C_Init(I2C2);
     Bsp_FT5426_ResetAndInit();
     ft5426_device.initfalg = 1;
@@ -82,7 +82,7 @@ void Bsp_FT5426_INTCallback(uint32_t GICC_IAR, void *params) {
     }
 }
 
-void Bsp_FT5426_PadInit(void) {
+void Bsp_FT5426_IOInit(void) {
     // SCL and SDA
     IOMUXC_SetPinMux(IOMUXC_UART5_TX_DATA_I2C2_SCL, 1);
     IOMUXC_SetPinMux(IOMUXC_UART5_RX_DATA_I2C2_SDA, 1);

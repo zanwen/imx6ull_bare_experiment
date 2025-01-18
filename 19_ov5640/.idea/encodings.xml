@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/bsp/logger/logger.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bsp/ov5640/bsp_ov5640_cfg.h" charset="UTF-8" />
+  </component>
+</project>
