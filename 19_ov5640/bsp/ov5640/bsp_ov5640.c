@@ -8,6 +8,8 @@
 #include "driver_gpio.h"
 #include "driver_delay.h"
 #include "bsp_ov5640_cfg.h"
+#include "driver_csi.h"
+#include "bsp_lcd.h"
 
 #define RESET_PIN GPIO1, 2
 #define POWER_DOWN_PIN GPIO1, 4
@@ -71,12 +73,18 @@ uint8_t atk_mc5640_set_mirror_flip(atk_mc5640_mirror_flip_t mirror_flip);
 
 uint8_t atk_mc5640_auto_focus_init(void);
 
-uint8_t atk_mc5640_set_contrast(atk_mc5640_contrast_t contrast);                                            /* 设置ATK-MC5640模块对比度 */
-uint8_t atk_mc5640_set_hue(atk_mc5640_hue_t hue);                                                           /* 设置ATK-MC5640模块色相 */
-uint8_t atk_mc5640_set_special_effect(atk_mc5640_special_effect_t effect);                                  /* 设置ATK-MC5640模块特殊效果 */
-uint8_t atk_mc5640_set_exposure_level(atk_mc5640_exposure_level_t level);                                   /* 设置ATK-MC5640模块曝光度 */
-uint8_t atk_mc5640_set_sharpness_level(atk_mc5640_sharpness_t sharpness);                                   /* 设置ATK-MC5640模块锐度 */
-uint8_t atk_mc5640_set_test_pattern(atk_mc5640_test_pattern_t pattern);                                     /* 设置ATK-MC5640模块测试图案 */
+uint8_t atk_mc5640_set_contrast(
+        atk_mc5640_contrast_t contrast);                                            /* 设置ATK-MC5640模块对比度 */
+uint8_t atk_mc5640_set_hue(
+        atk_mc5640_hue_t hue);                                                           /* 设置ATK-MC5640模块色相 */
+uint8_t atk_mc5640_set_special_effect(
+        atk_mc5640_special_effect_t effect);                                  /* 设置ATK-MC5640模块特殊效果 */
+uint8_t atk_mc5640_set_exposure_level(
+        atk_mc5640_exposure_level_t level);                                   /* 设置ATK-MC5640模块曝光度 */
+uint8_t atk_mc5640_set_sharpness_level(
+        atk_mc5640_sharpness_t sharpness);                                   /* 设置ATK-MC5640模块锐度 */
+uint8_t atk_mc5640_set_test_pattern(
+        atk_mc5640_test_pattern_t pattern);                                     /* 设置ATK-MC5640模块测试图案 */
 
 
 void Bsp_OV5640_IOInit(void) {
@@ -157,11 +165,23 @@ void Bsp_OV5640_Test(void) {
 //    atk_mc5640_set_output_size(OUTPUT_WIDTH, OUTPUT_HEIGHT);
 }
 
+void Bsp_OV5640_CSI_Init(void) {
+    CSI_Config_t config = {1024, 600, 2, LCD_FRAMEBUF_RGB565_ADDR};
+    Driver_CSI_IOInit();
+    Driver_CSI_ControllerInit(&config);
+
+    Driver_CSI_DMA_AddrInit(config.frameBufferAddr);
+    Driver_CSI_ImageParamInit(&config);
+    Driver_CSI_DMA_ReflashRFF();
+    Driver_CSI_Start();
+}
+
 void Bsp_OV5640_Init(void) {
     Bsp_OV5640_IOInit();
     Bsp_OV5640_HardReset();
     Driver_I2C_Init(I2C2);
     Bsp_OV5640_RegInit();
+    Bsp_OV5640_CSI_Init();
     LOG_DEBUG("Bsp_OV5640_Init done");
 }
 
@@ -241,11 +261,11 @@ uint8_t atk_mc5640_set_output_size(uint16_t width, uint16_t height) {
     reg380A = Bsp_OV5640_ReadByte(0x380A);
 
     reg3808 &= ~0x0F;
-    reg3808 |= (uint8_t)(width >> 8) & 0x0F;
-    reg3809 = (uint8_t)width & 0xFF;
+    reg3808 |= (uint8_t) (width >> 8) & 0x0F;
+    reg3809 = (uint8_t) width & 0xFF;
     reg380A &= ~0x07;
-    reg380A |= (uint8_t)(height >> 8) & 0x07;
-    reg380B = (uint8_t)height & 0xFF;
+    reg380A |= (uint8_t) (height >> 8) & 0x07;
+    reg380B = (uint8_t) height & 0xFF;
 
     Bsp_OV5640_WriteByte(0x3212, 0x03);
     Bsp_OV5640_WriteByte(0x3808, reg3808);

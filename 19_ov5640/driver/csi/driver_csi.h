@@ -14,8 +14,18 @@ typedef struct {
     uint32_t frameBufferAddr;
 } CSI_Config_t;
 
-void Driver_CSI_Init(void);
+void Driver_CSI_IOInit(void);
+
+void Driver_CSI_ControllerInit(CSI_Config_t *config);
+
+void Driver_CSI_DMA_ReflashRFF(void);
+
+void Driver_CSI_ImageParamInit(CSI_Config_t *config);
+
+void Driver_CSI_DMA_AddrInit(uint32_t frameBufferAddr);
+
 void Driver_CSI_Start(void);
+
 void Driver_CSI_Stop(void);
 
 #endif //INC_19_OV5640_DRIVER_CSI_H

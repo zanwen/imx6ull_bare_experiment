@@ -44,12 +44,12 @@ int main() {
     Driver_Delay_Init();
     Driver_UART_Init();
 //    Bsp_LCD_Init();
-    Bsp_LCD_InitRGB565();
     rtc_init();
 //    Bsp_FT5426_Init();
+
+    Bsp_LCD_InitRGB565();
     Bsp_OV5640_Init();
-    Driver_CSI_Init();
-    
+
     SwitchStatus_t state = OFF;
     while (1) {
         KeyNo_t key = Bsp_Key_DetectPressEvent();
