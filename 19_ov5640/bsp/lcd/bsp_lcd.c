@@ -22,8 +22,15 @@ void Bsp_LCD_Enable(void) {
     LCDIF->CTRL |= 1 << 0; /* 使能ELCDIF */
 }
 
-
 void Bsp_LCD_Init(void) {
+#if USE_LCD_RGB888
+    Bsp_LCD_InitRGB888();
+#else
+    Bsp_LCD_InitRGB565();
+#endif
+}
+
+void Bsp_LCD_InitRGB888(void) {
     uint16_t lcdid = Bsp_LCD_ReadID();
     tftlcd_dev.id = lcdid;
     Bsp_LCD_IOInit();
@@ -159,8 +166,8 @@ void Bsp_LCD_InitRGB565(void) {
     tftlcd_dev.hbpd = 140;
     tftlcd_dev.hfpd = 160;
     Bsp_LCD_ClkInit(32, 3, 5); /* 初始化LCD时钟 51.2MHz */
-    tftlcd_dev.pixsize = 4;    /* ARGB8888模式，每个像素4字节 */
-    tftlcd_dev.framebuffer = LCD_FRAMEBUF_RGB565_ADDR;
+    tftlcd_dev.pixsize = 4;    /* TODO 每个像素2字节 */
+    tftlcd_dev.framebuffer = LCD_FRAMEBUF_ADDR;
     tftlcd_dev.backcolor = LCD_WHITE; /* 背景色为白色 */
     tftlcd_dev.forecolor = LCD_BLACK; /* 前景色为黑色 */
 
@@ -170,8 +177,8 @@ void Bsp_LCD_InitRGB565(void) {
      * bit [17] 1 : LCD工作在dotclk模式
      * bit [15:14] 00 : 输入数据不交换（是否需要交换字节顺序参考屏幕说明书）
      * bit [13:12] 00 : CSC不交换
-     * bit [11:10] 11 : 24位总线宽度
-     * bit [9:8]   00 : 16位数据宽度,也就是RGB565
+     * bit [11:10] 11 : TODO 24位总线宽度
+     * bit [9:8]   00 : TODO 16位像素比特,也就是RGB565
      * bit [5]     1  : elcdif工作在主模式
      * bit [1]     0  : 所有的24位均有效
 	 */
@@ -180,9 +187,10 @@ void Bsp_LCD_InitRGB565(void) {
     /*
      * 初始化ELCDIF的寄存器CTRL1
      * bit [19:16]  : 0X7 ARGB模式下，传输24位数据，A通道不用传输
-     *                0Xf 16
+     *                0Xf TODO 16位有效
 	 */
-    LCDIF->CTRL1 = 0xf << 16;
+    LCDIF->CTRL1 &= ~(0xf << 16);
+    LCDIF->CTRL1 |= (0xf << 16);
 
     /*
       * 初始化ELCDIF的寄存器TRANSFER_COUNT寄存器

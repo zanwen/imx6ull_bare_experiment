@@ -158,19 +158,20 @@ uint8_t Bsp_OV5640_ReadByte(uint16_t regAddr) {
 }
 
 void Bsp_OV5640_Test(void) {
-    uint8_t read = 0;
-    Bsp_OV5640_ReadBytes(0x4740, &read, 1);
-    LOG_DEBUG("0x4740 = %#x", read);
+    LOG_DEBUG("lcd ctrl = %#x", LCDIF->CTRL);
+//    uint8_t read = 0;
+//    Bsp_OV5640_ReadBytes(0x4300, &read, 1);
+//    LOG_DEBUG("0x4300 = %#x", read);
 //    atk_mc5640_get_output_size();
 //    atk_mc5640_set_output_size(OUTPUT_WIDTH, OUTPUT_HEIGHT);
 }
 
 void Bsp_OV5640_CSI_Init(void) {
-    CSI_Config_t config = {1024, 600, 2, LCD_FRAMEBUF_RGB565_ADDR};
+    CSI_Config_t config = {1024, 600, 2};
     Driver_CSI_IOInit();
-    Driver_CSI_ControllerInit(&config);
+    Driver_CSI_ControllerInit();
 
-    Driver_CSI_DMA_AddrInit(config.frameBufferAddr);
+    Driver_CSI_DMA_AddrInit(LCD_FRAMEBUF_ADDR);
     Driver_CSI_ImageParamInit(&config);
     Driver_CSI_DMA_ReflashRFF();
     Driver_CSI_Start();

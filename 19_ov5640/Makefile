@@ -29,6 +29,7 @@ INCLUDE_DIRS 		:= sdk					\
 					   bsp/gt911			\
 					   bsp/touch			\
 					   bsp/ov5640			\
+					   bsp/ov2640			\
 					   stdio/include
 
 # 所有源文件路径
@@ -53,6 +54,7 @@ SRC_DIRS			:= sdk					\
 					   bsp/gt911			\
 					   bsp/touch			\
 					   bsp/ov5640			\
+					   bsp/ov2640			\
 					   stdio/lib
 
 # 目标文件路径

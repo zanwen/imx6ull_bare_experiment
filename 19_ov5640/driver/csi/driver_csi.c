@@ -22,8 +22,8 @@ void Driver_CSI_IOInit(void) {
     IOMUXC_SetPinMux(IOMUXC_CSI_DATA07_CSI_DATA09, 0);
 }
 
-void Driver_CSI_ControllerInit(CSI_Config_t *config) {
-    CSI->CSICR1 = (1 << 1) | (1 << 4) | (1 << 7) | (1 << 11) | (1 << 30);
+void Driver_CSI_ControllerInit() {
+    CSI->CSICR1 = (1 << 1) | (1 << 4) | (0 << 7) | (1 << 11) | (1 << 30);
     CSI->CSICR1 |= (1 << 5);
     while (CSI->CSICR1 & (1 << 5));
 
@@ -34,12 +34,6 @@ void Driver_CSI_ControllerInit(CSI_Config_t *config) {
     CSI->CSICR3 |= (1 << 14);
     while (CSI->CSICR3 & (1 << 14));
     CSI->CSICR3 |= (1 << 0) | (3 << 4);
-
-//    CSI->CSIIMAG_PARA = (widthBytes << 16) | config->height;
-//    CSI->CSICR2 |= 3 << 30;
-//    CSI->CSICR3 |= (1 << 0) | (3 << 4);
-//    CSI->CSIDMASA_FB1 = config->frameBufferAddr;
-//    CSI->CSIDMASA_FB2 = config->frameBufferAddr;
 }
 
 void Driver_CSI_DMA_ReflashRFF(void) {

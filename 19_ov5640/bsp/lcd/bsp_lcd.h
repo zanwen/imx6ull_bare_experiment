@@ -7,33 +7,64 @@
 
 #include "imx6ull.h"
 
-/* 颜色 */
-#define LCD_BLUE 0x000000FF
-#define LCD_GREEN 0x0000FF00
-#define LCD_RED 0x00FF0000
-#define LCD_CYAN 0x0000FFFF
-#define LCD_MAGENTA 0x00FF00FF
-#define LCD_YELLOW 0x00FFFF00
-#define LCD_LIGHTBLUE 0x008080FF
-#define LCD_LIGHTGREEN 0x0080FF80
-#define LCD_LIGHTRED 0x00FF8080
-#define LCD_LIGHTCYAN 0x0080FFFF
-#define LCD_LIGHTMAGENTA 0x00FF80FF
-#define LCD_LIGHTYELLOW 0x00FFFF80
-#define LCD_DARKBLUE 0x00000080
-#define LCD_DARKGREEN 0x00008000
-#define LCD_DARKRED 0x00800000
-#define LCD_DARKCYAN 0x00008080
-#define LCD_DARKMAGENTA 0x00800080
-#define LCD_DARKYELLOW 0x00808000
-#define LCD_WHITE 0x00FFFFFF
-#define LCD_LIGHTGRAY 0x00D3D3D3
-#define LCD_GRAY 0x00808080
-#define LCD_DARKGRAY 0x00404040
-#define LCD_BLACK 0x00000000
-#define LCD_BROWN 0x00A52A2A
-#define LCD_ORANGE 0x00FFA500
-#define LCD_TRANSPARENT 0x00000000
+#define USE_LCD_RGB888 0
+
+#if USE_LCD_RGB888
+    /* 颜色 */
+    #define LCD_BLUE 0x000000FF
+    #define LCD_GREEN 0x0000FF00
+    #define LCD_RED 0x00FF0000
+    #define LCD_CYAN 0x0000FFFF
+    #define LCD_MAGENTA 0x00FF00FF
+    #define LCD_YELLOW 0x00FFFF00
+    #define LCD_LIGHTBLUE 0x008080FF
+    #define LCD_LIGHTGREEN 0x0080FF80
+    #define LCD_LIGHTRED 0x00FF8080
+    #define LCD_LIGHTCYAN 0x0080FFFF
+    #define LCD_LIGHTMAGENTA 0x00FF80FF
+    #define LCD_LIGHTYELLOW 0x00FFFF80
+    #define LCD_DARKBLUE 0x00000080
+    #define LCD_DARKGREEN 0x00008000
+    #define LCD_DARKRED 0x00800000
+    #define LCD_DARKCYAN 0x00008080
+    #define LCD_DARKMAGENTA 0x00800080
+    #define LCD_DARKYELLOW 0x00808000
+    #define LCD_WHITE 0x00FFFFFF
+    #define LCD_LIGHTGRAY 0x00D3D3D3
+    #define LCD_GRAY 0x00808080
+    #define LCD_DARKGRAY 0x00404040
+    #define LCD_BLACK 0x00000000
+    #define LCD_BROWN 0x00A52A2A
+    #define LCD_ORANGE 0x00FFA500
+    #define LCD_TRANSPARENT 0x00000000
+#else
+    #define LCD_BLUE         0x001F
+    #define LCD_GREEN        0x07E0
+    #define LCD_RED          0xF800
+    #define LCD_CYAN         0x07FF
+    #define LCD_MAGENTA      0xF81F
+    #define LCD_YELLOW       0xFFE0
+    #define LCD_LIGHTBLUE    0x841F
+    #define LCD_LIGHTGREEN   0x87F0
+    #define LCD_LIGHTRED     0xFC10
+    #define LCD_LIGHTCYAN    0x87FF
+    #define LCD_LIGHTMAGENTA 0xFC1F
+    #define LCD_LIGHTYELLOW  0xFFF0
+    #define LCD_DARKBLUE     0x0010
+    #define LCD_DARKGREEN    0x0400
+    #define LCD_DARKRED      0x8000
+    #define LCD_DARKCYAN     0x0410
+    #define LCD_DARKMAGENTA  0x8010
+    #define LCD_DARKYELLOW   0x8400
+    #define LCD_WHITE        0xFFFF
+    #define LCD_LIGHTGRAY    0xD69A
+    #define LCD_GRAY         0x8410
+    #define LCD_DARKGRAY     0x4208
+    #define LCD_BLACK        0x0000
+    #define LCD_BROWN        0xA145
+    #define LCD_ORANGE       0xFD20
+    #define LCD_TRANSPARENT  0x0000
+#endif
 
 /* 屏幕ID */
 #define ATK4342 0X4342 /* 4.3寸480*272 	*/
@@ -45,7 +76,6 @@
 
 /* LCD显存地址 */
 #define LCD_FRAMEBUF_ADDR (0x89000000)
-#define LCD_FRAMEBUF_RGB565_ADDR (0x8A000000)
 
 /* LCD控制参数结构体 */
 struct tftlcd_typedef {
@@ -67,6 +97,8 @@ struct tftlcd_typedef {
 extern struct tftlcd_typedef tftlcd_dev;
 
 void Bsp_LCD_Init(void);
+
+void Bsp_LCD_InitRGB888(void);
 
 void Bsp_LCD_InitRGB565(void);
 
