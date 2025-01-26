@@ -31,6 +31,9 @@ INCLUDE_DIRS 		:= sdk					\
 					   lvgl/examples/porting			\
 					   lvgl/src							\
 					   lvgl								\
+					   lvgl/demos								\
+					   lvgl/demos/stress								\
+					   lvgl/demos/music								\
 					   stdio/include
 
 # 所有源文件路径
@@ -98,6 +101,9 @@ SRC_DIRS			:= sdk					\
 					   lvgl/src/hal				 					\
 					   lvgl/src/misc				 				\
 					   lvgl/src/widgets				 				\
+					   lvgl/demos/stress								\
+					   lvgl/demos/music								\
+					   lvgl/demos/music/assets								\
 					   stdio/lib
 
 # 目标文件路径

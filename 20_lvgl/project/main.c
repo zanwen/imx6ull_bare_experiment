@@ -19,7 +19,8 @@
 #include "lvgl.h"
 #include "lv_port_disp_template.h"
 #include "lv_port_indev_template.h"
-
+#include "lv_demo_stress.h"
+#include "lv_demo_music.h"
 
 /* 背景颜色索引 */
 unsigned int backcolor[10] = {
@@ -34,6 +35,11 @@ unsigned int backcolor[10] = {
         LCD_BLACK,
         LCD_ORANGE,
 };
+
+extern int printf(const char *fmt, ...);
+void lv_log_print_g_cb(const char * buf) {
+    printf("%s", buf);
+}
 
 int main() {
     Driver_INT_Init();
@@ -52,14 +58,28 @@ int main() {
     lv_init();
     lv_port_disp_init();
     lv_port_indev_init();
+    lv_log_register_print_cb(lv_log_print_g_cb);
 
-    lv_obj_t* switch_obj = lv_switch_create(lv_scr_act());
-    lv_obj_set_size(switch_obj, 120, 60);
-    lv_obj_align(switch_obj, LV_ALIGN_CENTER, 0, 0);
+//    lv_obj_t* switch_obj = lv_switch_create(lv_scr_act());
+//    lv_obj_set_size(switch_obj, 120, 60);
+//    lv_obj_align(switch_obj, LV_ALIGN_CENTER, 0, 0);
 
+//    lv_demo_stress();
+    lv_demo_music();
+
+    static SwitchStatus_t status = ON;
+    static int cnt = 0;
     while(1) {
         Driver_Delay_MS(5);
+        uint32_t tickStart = GET_TICK();
         lv_timer_handler();
+        uint32_t tickEnd = GET_TICK();
+        printf("lv_timer_handler end, elapse = %lu ms\r\n", (tickEnd - tickStart) / 1000);
+        if(++cnt == 10) {
+            cnt = 0;
+            Bsp_Led_Switch(status);
+            status =!status;
+        }
     }
 
 //    tftlcd_dev.forecolor = LCD_RED;

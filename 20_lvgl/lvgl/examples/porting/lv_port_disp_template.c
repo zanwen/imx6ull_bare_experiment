@@ -12,6 +12,7 @@
 #include "lv_port_disp_template.h"
 #include "../../lvgl.h"
 #include "bsp_lcd.h"
+#include "driver_delay.h"
 
 /*********************
  *      DEFINES
@@ -53,8 +54,9 @@ void lv_port_disp_init(void)
      * Create a buffer for drawing
      *----------------------------*/
     static lv_disp_draw_buf_t draw_buf_dsc_1;
-    static lv_color_t buf_1[1024 * 10];                          /*A buffer for 10 rows*/
-    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, 1024 * 10);   /*Initialize the display buffer*/
+//    static lv_color_t buf_1[1024 * 600];                          /*A buffer for 10 rows*/
+//    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, 1024 * 600);   /*Initialize the display buffer*/
+    lv_disp_draw_buf_init(&draw_buf_dsc_1, (void *)LCD_FRAMEBUF_ADDR, NULL, 1024 * 600);   /*Initialize the display buffer*/
 
     /*-----------------------------------
      * Register the display in LVGL
@@ -103,17 +105,22 @@ static void disp_init(void)
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
     /*The most simple case (but also the slowest) to put all pixels to the screen one-by-one*/
-
-    int32_t x;
-    int32_t y;
-    for(y = area->y1; y <= area->y2; y++) {
-        for(x = area->x1; x <= area->x2; x++) {
-            /*Put a pixel to the display. For example:*/
-            /*put_px(x, y, *color_p)*/
-            lcd_drawpoint(x, y, color_p->full);
-            color_p++;
-        }
-    }
+//    extern int printf(const char *fmt, ...);
+//    uint32_t tickStart = GET_TICK();
+//
+//    int32_t x;
+//    int32_t y;
+//    for(y = area->y1; y <= area->y2; y++) {
+//        for(x = area->x1; x <= area->x2; x++) {
+//            /*Put a pixel to the display. For example:*/
+//            /*put_px(x, y, *color_p)*/
+//            lcd_drawpoint(x, y, color_p->full);
+//            color_p++;
+//        }
+//    }
+//
+//    uint32_t tickEnd = GET_TICK();
+//    printf("disp_flush end, elapse = %lu ms\r\n", (tickEnd - tickStart) / 1000);
 
     /*IMPORTANT!!!
      *Inform the graphics library that you are ready with the flushing*/

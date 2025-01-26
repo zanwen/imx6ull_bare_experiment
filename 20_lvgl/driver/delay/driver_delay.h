@@ -2,6 +2,9 @@
 #define __BSP_DELAY_H__
 
 #include "imx6ull.h"
+
+#define GET_TICK() (GPT1->CNT)
+
 void Driver_Delay_Init(void);
 
 void Driver_Delay_US(volatile unsigned int n);
